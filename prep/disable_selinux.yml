@@ -1,0 +1,9 @@
+---
+- name: "Ensure SELinux is disabled on all hosts"
+  hosts: all
+  gather_facts: yes
+  become: yes
+  tasks:
+    - name: "Ensure SELinux is disabled"
+      ansible.builtin.selinux:
+        state: disabled
