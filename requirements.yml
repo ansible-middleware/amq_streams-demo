@@ -1,0 +1,4 @@
+---
+collections:
+  - name: middleware_automation.amq_streams
+  - name: ansible.posix
