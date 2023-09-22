@@ -1,0 +1,11 @@
+---
+amq_streams_common_download_dir: "/opt"
+amq_streams_common_systctl_update_enable: True
+amq_streams_common_offline_install: True
+amq_streams_common_download_remote_src: yes
+# workaround
+amq_streams_common_redhat_enable: True
+
+amq_streams_zookeeper_auth_enabled: True
+amq_streams_zookeeper_auth_user: zkadmin
+#amq_streams_zookeeper_auth_pass: var needs to be provided
