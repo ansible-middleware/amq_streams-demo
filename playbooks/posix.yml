@@ -1,0 +1,13 @@
+---
+- name: "Ensure posix collection is available"
+  hosts: all
+  gather_facts: no
+  become: yes
+  collections:
+    - ansible.posix
+  tasks:
+    - name: "Verify that posix collections is available"
+      ansible.posix.seboolean:
+        name: httpd_can_network_connect
+        state: true
+        persistent: true
