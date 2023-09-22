@@ -1,5 +1,5 @@
 ---
-- name: "Ansible Playbook to install a Zookeeper ensemble and Kafka Broker Authenticated"
+- name: "Ansible Playbook to install a Zookeeper ensemble with auth"
   hosts: all
   vars_files:
     - vars.yml
@@ -16,7 +16,7 @@
         quiet: true
   tasks:
     - ansible.builtin.include_role:
-        name: middleware_automation.amq_streams
+        name: middleware_automation.amq_streams_zookeeper
   post_tasks:
     - name: "Display numbers of Zookeeper instances managed by Ansible."
       ansible.builtin.debug:
@@ -26,5 +26,5 @@
 
     - name: "Validate that Zookeeper deployment is functional."
       ansible.builtin.include_role:
-        name: middleware_automation.amq_streams
+        name: middleware_automation.amq_streams_zookeeper
         tasks_from: validate.yml
