@@ -6,7 +6,8 @@
   collections:
     - middleware_automation.amq_streams
   roles:
-    - role: amq_streams_zookeeper
+    - role: middleware_automation.amq_streams_zookeeper
+
   pre_tasks:
     - name: "Ensure ZK admin password has been defined."
       ansible.builtin.assert:
