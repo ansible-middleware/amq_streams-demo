@@ -5,8 +5,8 @@
     - vars.yml
   collections:
     - middleware_automation.amq_streams
-  roles:
-    - role: middleware_automation.amq_streams_zookeeper
+#  roles:
+#    - role: middleware_automation.amq_streams_zookeeper
 
   pre_tasks:
     - name: "Ensure ZK admin password has been defined."
@@ -14,7 +14,9 @@
         that:
           - amq_streams_zookeeper_auth_pass is defined and amq_streams_zookeeper_auth_pass | length > 0
         quiet: true
-
+  tasks:
+    - ansible.builtin.include_role:
+        name: middleware_automation.amq_streams
   post_tasks:
     - name: "Display numbers of Zookeeper instances managed by Ansible."
       ansible.builtin.debug:
@@ -24,5 +26,5 @@
 
     - name: "Validate that Zookeeper deployment is functional."
       ansible.builtin.include_role:
-        name: amq_streams_zookeeper
+        name: middleware_automation.amq_streams
         tasks_from: validate.yml
