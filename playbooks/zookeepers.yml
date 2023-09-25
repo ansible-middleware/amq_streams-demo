@@ -31,5 +31,5 @@
 
     - name: "Validate that Zookeeper deployment is functional."
       ansible.builtin.include_role:
-        name: middleware_automation.amq_streams_zookeeper
+        name: middleware_automation.amq_streams.amq_streams_zookeeper
         tasks_from: validate.yml
