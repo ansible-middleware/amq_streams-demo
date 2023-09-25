@@ -1,6 +1,6 @@
 ---
 - name: "Ansible Playbook to install a Zookeeper ensemble with auth"
-  hosts: all
+  hosts: zookeepers
   vars_files:
     - vars.yml
   collections:
