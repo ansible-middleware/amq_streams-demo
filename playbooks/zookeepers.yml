@@ -9,13 +9,17 @@
     - role: middleware_automation.amq_streams.amq_streams_zookeeper
 
   pre_tasks:
-    - ansible.builtin.debug:
-        var: groups
+    - name: "Ensure decompress utility for {{ amq_streams_common_archive_file }} is present"
+      ansible.builtin.package:
+        name: tar
+        state: present
+
     - name: "Ensure ZK admin password has been defined."
       ansible.builtin.assert:
         that:
           - amq_streams_zookeeper_auth_pass is defined and amq_streams_zookeeper_auth_pass | length > 0
         quiet: true
+
   post_tasks:
     - name: "Display numbers of Zookeeper instances managed by Ansible."
       ansible.builtin.debug:
