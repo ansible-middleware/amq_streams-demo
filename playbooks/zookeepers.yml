@@ -11,7 +11,9 @@
   pre_tasks:
     - name: "Ensure decompress utility for {{ amq_streams_common_archive_file }} is present"
       ansible.builtin.package:
-        name: tar
+        name:
+          - tar
+          - unzip
         state: present
 
     - name: "Ensure ZK admin password has been defined."
