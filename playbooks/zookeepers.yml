@@ -1,6 +1,6 @@
 ---
 - name: "Ansible Playbook to install a Zookeeper ensemble with auth"
-  hosts: zookeepers
+  hosts: all
   vars_files:
     - vars.yml
   collections:
@@ -9,6 +9,8 @@
     - role: middleware_automation.amq_streams.amq_streams_zookeeper
 
   pre_tasks:
+    - ansible.builtin.debug:
+        var: groups
     - name: "Ensure ZK admin password has been defined."
       ansible.builtin.assert:
         that:
