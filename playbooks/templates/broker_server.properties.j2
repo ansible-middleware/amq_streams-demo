@@ -115,11 +115,6 @@ num.recovery.threads.per.data.dir={{ amq_streams_broker_num_recovery_threads_per
 ############################# Internal Topic Settings  #############################
 # The replication factor for the group metadata internal topics "__consumer_offsets" and "__transaction_state"
 # For anything other than development testing, a value greater than 1 is recommended to ensure availability such as 3.
-# TODO:
-replication.factor = 2
-# TODOmin.insync.replicas = replication factor -1
-min.insync.replicas = 1
-
 offsets.topic.replication.factor={{ amq_streams_broker_offsets_topic_replication_factor }}
 transaction.state.log.replication.factor={{ amq_streams_broker_transaction_state_log_replication_factor }}
 transaction.state.log.min.isr={{ amq_streams_broker_transaction_state_log_min_isr }}

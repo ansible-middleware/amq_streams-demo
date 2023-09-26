@@ -33,9 +33,9 @@
     amq_streams_broker_inter_broker_auth_sasl_mechanisms: PLAIN
     amq_streams_broker_inter_broker_auth_broker_username: interbroker
     amq_streams_broker_inter_broker_auth_broker_password: "{{ amq_streams_zookeeper_auth_pass }}"
-    amq_streams_broker_offsets_topic_replication_factor: 3
-    amq_streams_broker_transaction_state_log_replication_factor: 3
-    amq_streams_broker_transaction_state_log_min_isr: 2
+    amq_streams_broker_offsets_topic_replication_factor: 1
+    amq_streams_broker_transaction_state_log_replication_factor: 1
+    amq_streams_broker_transaction_state_log_min_isr: 1
     # use all zk available in the zookeepers group
     amq_streams_zookeeper_inventory_group: "{{ groups['zookeepers'] }}"
     amq_streams_broker_properties_template: templates/broker_server.properties.j2
