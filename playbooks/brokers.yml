@@ -38,7 +38,7 @@
     amq_streams_broker_transaction_state_log_min_isr: 2
     # use all zk available in the zookeepers group
     amq_streams_zookeeper_inventory_group: "{{ groups['zookeepers'] }}"
-    amq_streams_broker_properties_template: templates/server.properties.j2
+    amq_streams_broker_properties_template: templates/broker_server.properties.j2
   collections:
      - middleware_automation.amq_streams
   pre_tasks:
