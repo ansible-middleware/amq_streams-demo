@@ -41,16 +41,20 @@
   roles:
      - role: amq_streams_broker
   pre_tasks:
-     - name: "Ensure zk password has been provided."
+     - name: "Ensure zookeepers password has been provided."
        ansible.builtin.assert:
          that:
            - amq_streams_zookeeper_auth_pass is defined
            - amq_streams_zookeeper_auth_pass | length > 0
          quiet: true
 
-     - name: "Print members of the zookeepers inventory:"
+     - name: "Define members of the zookeepers inventory:"
+       ansible.builtin.set_fact:
+         amq_streams_zookeeper_inventory_group: "{{ groups['zookeepers'] }}"
+
+     - name: "Print all members of the zookeepers ensemble."
        ansible.builtin.debug:
-         var: groups
+         var: amq_streams_zookeeper_inventory_group
 
   post_tasks:
     - name: "Display numbers of broker instances managed by Ansible."
