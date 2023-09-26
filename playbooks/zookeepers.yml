@@ -1,6 +1,6 @@
 ---
 - name: "Ansible Playbook to install a Zookeeper ensemble with auth"
-  hosts: "{{ amq_streams_hosts_name }}"
+  hosts: zookeepers
   vars_files:
     - vars.yml
   collections:
