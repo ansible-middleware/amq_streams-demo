@@ -39,6 +39,13 @@
   collections:
      - middleware_automation.amq_streams
   pre_tasks:
+    - name: "Ensure decompress utility for {{ amq_streams_common_archive_file }} is present"
+      ansible.builtin.package:
+        name:
+          - tar
+          - unzip
+        state: present
+
     - name: "Print members of the brokers inventory:"
       ansible.builtin.debug:
         var: amq_streams_zookeeper_inventory_group
