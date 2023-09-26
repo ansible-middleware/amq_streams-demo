@@ -48,9 +48,9 @@
            - amq_streams_zookeeper_auth_pass | length > 0
          quiet: true
 
-    - name: "Print members of the zookeepers inventory:"
-      ansible.builtin.debug:
-        var: groups
+     - name: "Print members of the zookeepers inventory:"
+       ansible.builtin.debug:
+         var: groups
 
   post_tasks:
     - name: "Display numbers of broker instances managed by Ansible."
