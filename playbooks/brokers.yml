@@ -50,8 +50,7 @@
 
     - name: "Print members of the zookeepers inventory:"
       ansible.builtin.debug:
-        var: amq_streams_zookeeper_inventory_group
-
+        var: groups
 
   post_tasks:
     - name: "Display numbers of broker instances managed by Ansible."
