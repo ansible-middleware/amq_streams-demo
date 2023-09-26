@@ -41,8 +41,6 @@
     amq_streams_broker_properties_template: templates/server.properties.j2
   collections:
      - middleware_automation.amq_streams
-  roles:
-     - role: amq_streams_broker
   pre_tasks:
      - name: "Ensure zookeepers password has been provided."
        ansible.builtin.assert:
@@ -54,7 +52,9 @@
      - name: "Print all members of the zookeepers ensemble."
        ansible.builtin.debug:
          var: amq_streams_zookeeper_inventory_group
-
+  tasks:
+    - ansible.builtin.include_role:
+        name: amq_streams_broker
   post_tasks:
     - name: "Display numbers of broker instances managed by Ansible."
       ansible.builtin.debug:
