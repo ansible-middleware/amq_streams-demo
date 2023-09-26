@@ -38,11 +38,6 @@
     amq_streams_broker_transaction_state_log_min_isr: 2
   collections:
      - middleware_automation.amq_streams
-  pre_tasks:
-    - name: "Print members of the brokers inventory:"
-      ansible.builtin.debug:
-        var: amq_streams_zookeeper_inventory_group
-
   roles:
      - role: amq_streams_broker
   pre_tasks:
@@ -52,6 +47,11 @@
            - amq_streams_zookeeper_auth_pass is defined
            - amq_streams_zookeeper_auth_pass | length > 0
          quiet: true
+
+    - name: "Print members of the zookeepers inventory:"
+      ansible.builtin.debug:
+        var: amq_streams_zookeeper_inventory_group
+
 
   post_tasks:
     - name: "Display numbers of broker instances managed by Ansible."
