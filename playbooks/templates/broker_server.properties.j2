@@ -167,6 +167,7 @@ log.retention.check.interval.ms={{ amq_streams_broker_log_retention_check_interv
 
 # AMQ Streams demo
 #zookeeper.connect={% for zknode in amq_streams_zookeeper_inventory_group %}{{ zknode }}:{{ amq_streams_broker_zookeeper_port }},{% endfor %}
+#zookeeper.connect={{ amq_streams_zookeeper_connect | join(',') }}
 # TODO fix line above
 zookeeper.connect=ip-172-31-22-217.us-east-2.compute.internal:2181,ip-172-31-29-32.us-east-2.compute.internal:2181
 

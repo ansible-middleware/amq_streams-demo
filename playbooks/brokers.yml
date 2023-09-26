@@ -40,6 +40,7 @@
     # use all zk available in the zookeepers group
     amq_streams_zookeeper_inventory_group: "{{ groups['zookeepers'] }}"
     amq_streams_broker_properties_template: templates/broker_server.properties.j2
+    amq_streams_zookeeper_connect: []
   collections:
      - middleware_automation.amq_streams
   pre_tasks:
@@ -55,8 +56,15 @@
          quiet: true
 
      - name: "Print all members of the zookeepers ensemble."
-       ansible.builtin.debug:
-         var: amq_streams_zookeeper_inventory_group
+       ansible.builtin.set_fact:
+         zk_node: "{{ zk_host }}:{{ amq_streams_broker_zookeeper_port }}"
+         amq_streams_zookeeper_connect: "{{ [ amq_streams_zookeeper_connect + zk_node ] | flatten }}"
+       loop: "{{ amq_streams_zookeeper_inventory_group }}"
+       loop_control:
+         loop_var: zk_host
+
+     - ansible.builtin.debug:
+         var: amq_streams_zookeeper_connect
   tasks:
     - ansible.builtin.include_role:
         name: amq_streams_broker
