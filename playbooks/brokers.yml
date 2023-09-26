@@ -36,6 +36,8 @@
     amq_streams_broker_offsets_topic_replication_factor: 3
     amq_streams_broker_transaction_state_log_replication_factor: 3
     amq_streams_broker_transaction_state_log_min_isr: 2
+    # use all zk available in the zookeepers group
+    amq_streams_zookeeper_inventory_group: "{{ groups['zookeepers'] }}"
   collections:
      - middleware_automation.amq_streams
   roles:
@@ -47,10 +49,6 @@
            - amq_streams_zookeeper_auth_pass is defined
            - amq_streams_zookeeper_auth_pass | length > 0
          quiet: true
-
-     - name: "Define members of the zookeepers inventory:"
-       ansible.builtin.set_fact:
-         amq_streams_zookeeper_inventory_group: "{{ groups['zookeepers'] }}"
 
      - name: "Print all members of the zookeepers ensemble."
        ansible.builtin.debug:
