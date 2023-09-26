@@ -41,6 +41,7 @@
     amq_streams_zookeeper_inventory_group: "{{ groups['zookeepers'] }}"
     amq_streams_broker_properties_template: templates/broker_server.properties.j2
     amq_streams_zookeeper_connect: []
+    amq_streams_broker_zookeeper_port: 2181
   collections:
      - middleware_automation.amq_streams
   pre_tasks:
