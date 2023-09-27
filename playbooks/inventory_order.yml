@@ -6,9 +6,10 @@
     - ansible.builtin.debug:
         var: groups
 
-- name: "Delete Kafka binaries and deployed config files"
+- name: "Ping each host of the inventory"
   hosts: all
   gather_facts: no
+  order: reverse_inventory
   serial: 1
   tasks:
 
