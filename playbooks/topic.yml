@@ -1,0 +1,52 @@
+---
+- name: "Ansible Playbook to install a Kafka cluster"
+  hosts: topic_writer
+  gather_facts: no
+  become: yes
+  vars_files:
+    - vars.yml
+  vars:
+    amq_streams_broker_auth_enabled: True
+    amq_streams_zookeeper_auth_user: admin
+    amq_streams_broker_admin_username: kafkauser
+    amq_streams_broker_topic_to_create_name: "myTopic"
+    # skip deps check to speedup play
+    amq_streams_common_skip_deps: True
+    # Topic Management
+    amq_streams_broker_topics:
+      - name: "{{ amq_streams_broker_topic_to_create_name }}"
+        partitions: 1
+        replication_factor: 1
+  collections:
+    - middleware_automation.amq_streams
+
+  pre_tasks:
+    - name: "Ensure required parameters are provided"
+      ansible.builtin.assert:
+        that:
+          - amq_streams_zookeeper_auth_pass is defined and amq_streams_zookeeper_auth_pass | length > 0
+          - amq_streams_broker_admin_password is defined and amq_streams_broker_admin_password | length > 0
+        quiet: true
+
+  tasks:
+    - name: "Create topic: {{ amq_streams_broker_topic_to_create_name }}"
+      ansible.builtin.include_role:
+        name: amq_streams_broker
+        tasks_from: topic/create.yml
+      loop: "{{ amq_streams_broker_topics }}"
+      loop_control:
+        loop_var: topic
+      vars:
+        topic_name: "{{ topic.name }}"
+        topic_partitions: "{{ topic.partitions }}"
+        topic_replication_factor: "{{ topic.replication_factor }}"
+
+    - name: "Describe topic: {{ amq_streams_broker_topic_to_create_name }}"
+      ansible.builtin.include_role:
+        name: amq_streams_broker
+        tasks_from: topic/describe.yml
+      loop: "{{ amq_streams_broker_topics }}"
+      loop_control:
+        loop_var: topic
+      vars:
+        topic_name: "{{ topic.name }}"
