@@ -71,3 +71,9 @@
       ansible.builtin.include_role:
         name: amq_streams_broker
         tasks_from: validate.yml
+
+  handlers:
+    - name: "Run Cruise Control if broker is restarted"
+      listen: "middleware_automation.amq_streams.amq_streams_broker : Restart amq_streams_broker"
+      ansible.builtin.debug:
+        msg: "Hey, here I should run CC!"
