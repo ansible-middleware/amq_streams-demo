@@ -1,5 +1,5 @@
 ---
-- name: "Ansible Playbook to install a Zookeeper ensemble and Kafka Broker Authenticated"
+- name: "Ansible Playbook to install Kafka Brokers with authentication"
   hosts: brokers
   serial: 1
   become: yes

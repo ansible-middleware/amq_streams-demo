@@ -169,7 +169,6 @@ log.retention.check.interval.ms={{ amq_streams_broker_log_retention_check_interv
 zookeeper.connect={{ amq_streams_broker_zookeeper_host }}:{{ amq_streams_broker_zookeeper_port }}{% for zknode in amq_streams_zookeeper_inventory_group %},{{ zknode }}:{{ amq_streams_broker_zookeeper_port }}{% endfor %}
 
 
-### AMQ Streams demo
 
 
 # Timeout in ms for connecting to zookeeper
