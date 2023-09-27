@@ -1,6 +1,8 @@
 ---
 - name: "Ansible Playbook to install a Zookeeper ensemble and Kafka Broker Authenticated"
   hosts: brokers
+  serial: 1
+  become: yes
   vars_files:
     - vars.yml
   vars:
@@ -60,6 +62,7 @@
   tasks:
     - ansible.builtin.include_role:
         name: amq_streams_broker
+
   post_tasks:
     - name: "Display numbers of broker instances managed by Ansible."
       ansible.builtin.debug:
