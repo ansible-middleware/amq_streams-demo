@@ -1,0 +1,12 @@
+---
+- name: "Ensure required parameters are provided."
+  ansible.builtin.assert:
+    that:
+      - service_name is defined and service_name | length > 0
+    quiet: True
+
+- name: "Print service facts on {{ service_name }}."
+  ansible.builtin.debug:
+    var: ansible_facts.services[service_name]
+  when:
+    - ansible_facts.services[service_name] is defined

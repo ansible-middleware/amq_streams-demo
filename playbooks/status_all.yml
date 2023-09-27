@@ -1,0 +1,31 @@
+---
+- name: "Check status of target hosts"
+  hosts: "{{ target_group | default('all') }}"
+  gather_facts: False
+  serial: "{{ serial | default('100%') }}"
+  vars:
+    install_dir: '/opt'
+  tasks:
+
+    - name: Populate service facts
+      ansible.builtin.service_facts:
+
+    - ansible.builtin.include_tasks: status.yml
+      loop:
+        - 'amq_streams_zookeeper.service'
+        - 'amq_streams_broker.service'
+      loop_control:
+        loop_var: service_name
+
+    - name: "Disply content of install dir {{ install_dir }}"
+      when:
+        - display_install_dir is defined and display_install_dir
+      block:
+        - name: "Execute list files on {{ install_dir }}"
+          ansible.builtin.command: "ls {{ install_dir }}"
+          register: ls
+          changed_when: False
+
+        - name: "Print content of {{ install_dir }}"
+          ansible.builtin.debug:
+            var: ls.stdout
