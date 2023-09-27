@@ -1,0 +1,16 @@
+---
+- name: "Displays all groups"
+  hosts: all
+  gather_facts: no
+  tasks:
+    - ansible.builtin.debug:
+        var: groups
+
+- name: "Delete Kafka binaries and deployed config files"
+  hosts: all
+  gather_facts: no
+  serial: 1
+  tasks:
+
+   - name: "Ping host (belongs to group {{ groupname }}"
+     ansible.builtin.ping:
