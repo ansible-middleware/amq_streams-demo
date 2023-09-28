@@ -1,7 +1,7 @@
 ---
 - name: "Ansible Playbook to install Kafka Brokers with authentication"
   hosts: brokers
-  serial: 1
+  serial: "{{ amq_streams_broker_serial | default('100%') }}"
   become: yes
   vars_files:
     - vars.yml
