@@ -1,0 +1,15 @@
+---
+- name: "Ansible Version"
+  hosts: localhost
+  gather_facts: no
+  tasks:
+
+   - name: "Ansible Version"
+     ansible.builtin.shell: |
+       ansible --version
+     changed_when: False
+     register: results
+
+   - name: "Display results of operation (if any)"
+     ansible.builtin.debug:
+       var: results
