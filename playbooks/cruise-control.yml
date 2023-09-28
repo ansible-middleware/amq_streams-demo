@@ -20,6 +20,7 @@
     amq_streams_cruise_control_broker_host:	ip-172-31-17-73.us-east-2.compute.internal
     amq_streams_cruise_control_zk_host: ip-172-31-22-217.us-east-2.compute.internal
     amq_streams_broker_inventory_group: "{{ groups['brokers'] }}"
+    amq_streams_common_redhat_enable: False
   collections:
      - middleware_automation.amq_streams
   roles:
