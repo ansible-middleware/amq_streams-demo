@@ -1,0 +1,36 @@
+---
+- name: "Ansible Playbook to deploy Cruise Control"
+  hosts: cruise_controllers
+  gather_facts: False
+  become: yes
+  vars:
+    amq_streams_common_offline_install: True
+    # only to speed playbook execution after first run:
+    amq_streams_common_skip_deps: True
+    amq_streams_common_archive_file: amq-streams-2.5.0-cruise-control-bin.zip
+    amq_stream_cruise_control_home: /opt/cruise-control/
+    amq_streams_common_subdir: cruise-control
+    # note that the following value is string, not a Ansible bool
+    amq_streams_cruise_control_dry_mode: 'true'
+    # add security requirement
+    amq_streams_cruise_control_zk_security_protocol: SASL_PLAINTEXT
+    amq_streams_cruise_control_zk_sasl_mechanism: PLAIN
+    # cluster information
+    amq_streams_cruise_control_broker_host:	ip-172-31-17-73.us-east-2.compute.internal
+    amq_streams_cruise_control_zk_host: ip-172-31-22-217.us-east-2.compute.internal
+    amq_streams_broker_inventory_group: "{{ groups['brokers'] }}"
+  collections:
+     - middleware_automation.amq_streams
+  roles:
+    - role: amq_streams_cruise_control
+  pre_tasks:
+    - name: "Ensure JAAS config is up to date."
+      ansible.builtin.include_tasks: jaas_config.yml
+
+  post_tasks:
+    - name: "Use Cruise Control to rebalance the cluster"
+      ansible.builtin.include_role:
+        name: amq_streams_cruise_control
+        tasks_from: cruise_control_operation.yml
+      vars:
+        operation_name: rebalance
