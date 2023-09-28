@@ -5,6 +5,7 @@
   become: yes
   vars:
     amq_streams_common_offline_install: True
+    amq_streams_common_version: 2.5.0
     # only to speed playbook execution after first run:
     amq_streams_common_skip_deps: True
     amq_streams_common_archive_file: amq-streams-2.5.0-cruise-control-bin.zip
