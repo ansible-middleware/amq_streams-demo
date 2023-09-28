@@ -1,0 +1,26 @@
+#/opt/kafka_2.13-3.5.0.redhat-00010/bin/kafka-acls.sh --bootstrap-server localhost:9092 --command-config /opt/kafka_2.13-3.5.0.redhat-00010/config/sasl-admin.properties --add --deny-principal User:kafkauser --operation Write --topic test2
+#
+# /opt/kafka_2.13-3.5.0.redhat-00010/bin/kafka-acls.sh --bootstrap-server localhost:9092 --command-config /opt/kafka_2.13-3.5.0.redhat-00010/config/sasl.properties --remove --topic <topic>
+---
+- name: "ACL - Deny principal"
+  hosts: acls
+  gather_facts: no
+  vars_files:
+    - vars.yml
+  tasks:
+   - name: "Ensure required parameters are provided"
+     ansible.builtin.assert:
+       that:
+         - kafka_user is defined and kafka_user | length > 0
+         - topic_name is defined and topic_name | length > 0
+       quiet: True
+
+   - name: "Deny access to topic {{ topic_name }} to user {{ kafka_user }}"
+     ansible.builtin.shell: |
+       "{{ amq_streams_common_home }}/bin/kafka-acls.sh" --bootstrap-server localhost:9092 --command-config "{{ amq_streams_common_home }}/config/sasl-admin.properties" --add --deny-principal "User:{{ kafka_user }}" --operation Write --topic "{{ topic_name }}"
+     changed_when: True
+     register: results
+
+   - name: "Display results of operation (if any)"
+     ansible.builtin.debug:
+       var: results
