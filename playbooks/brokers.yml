@@ -33,6 +33,7 @@
         password: "{{ amq_streams_zookeeper_auth_pass }}"
 
     amq_streams_broker_inter_broker_auth_sasl_mechanisms: PLAIN
+    amq_streams_broker_inter_broker_auth_sasl_protocol: SASL_PLAINTEXT
     amq_streams_broker_inter_broker_auth_broker_username: interbroker
     amq_streams_broker_inter_broker_auth_broker_password: "{{ amq_streams_zookeeper_auth_pass }}"
     amq_streams_replication_factor: "{{ groups['brokers'] | length }}"
@@ -58,7 +59,8 @@
            - amq_streams_zookeeper_auth_pass is defined
            - amq_streams_zookeeper_auth_pass | length > 0
          quiet: true
-
+     - name: "Ensure JAAS config is up to date"
+       ansible.builtin.include_tasks: jaas_config.yml
   tasks:
     - ansible.builtin.include_role:
         name: amq_streams_broker
