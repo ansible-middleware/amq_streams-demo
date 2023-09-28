@@ -1,21 +1,20 @@
 ---
 - name: "Ansible Playbook to install a Zookeeper ensemble with auth"
   hosts: zookeepers
+  become: yes
+  gather_facts: yes
   vars_files:
     - vars.yml
+  vars:
+    amq_streams_common_prometheus_enabled: True
+    amq_streams_common_prometheus_path_config_file: zookeeper-metrics-config.yaml
+    amq_streams_common_prometheus_config_file_template: templates/zookeeper-metrics-config.yaml.j2
   collections:
     - middleware_automation.amq_streams
   roles:
     - role: middleware_automation.amq_streams.amq_streams_zookeeper
 
   pre_tasks:
-    - name: "Ensure decompress utility for {{ amq_streams_common_archive_file }} is present"
-      ansible.builtin.package:
-        name:
-          - tar
-          - unzip
-        state: present
-
     - name: "Ensure ZK admin password has been defined."
       ansible.builtin.assert:
         that:
