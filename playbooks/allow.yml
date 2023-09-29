@@ -18,7 +18,7 @@
          - topic_name is defined and topic_name | length > 0
        quiet: True
 
-   - name: "Allow write access to topic {{ topic_name }} to user {{ kafka_user }}"
+   - name: "Allow operatin {{ operation }} to topic {{ topic_name }} to user {{ kafka_user }}"
      ansible.builtin.shell: |
        "{{ amq_streams_common_home }}/bin/kafka-acls.sh" --bootstrap-server localhost:9092 --command-config "{{ amq_streams_common_home }}/config/sasl-admin.properties" --add --allow-principal "User:{{ kafka_user }}" --operation "{{ operation }}" --topic "{{ topic_name }}"
      changed_when: True
