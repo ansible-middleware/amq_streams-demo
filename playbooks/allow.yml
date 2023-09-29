@@ -9,6 +9,7 @@
     - vars.yml
   vars:
     bootstrap_server: localhost:9092
+    operation: All
   tasks:
    - name: "Ensure required parameters are provided"
      ansible.builtin.assert:
@@ -19,7 +20,7 @@
 
    - name: "Allow write access to topic {{ topic_name }} to user {{ kafka_user }}"
      ansible.builtin.shell: |
-       "{{ amq_streams_common_home }}/bin/kafka-acls.sh" --bootstrap-server localhost:9092 --command-config "{{ amq_streams_common_home }}/config/sasl-admin.properties" --add --allow-principal "User:{{ kafka_user }}" --operation Write --topic "{{ topic_name }}"
+       "{{ amq_streams_common_home }}/bin/kafka-acls.sh" --bootstrap-server localhost:9092 --command-config "{{ amq_streams_common_home }}/config/sasl-admin.properties" --add --allow-principal "User:{{ kafka_user }}" --operation "{{ operation }}" --topic "{{ topic_name }}"
      changed_when: True
      register: results
 
