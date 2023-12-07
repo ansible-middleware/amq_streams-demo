@@ -10,9 +10,9 @@
     amq_streams_common_prometheus_path_config_file: zookeeper-metrics-config.yaml
     amq_streams_common_prometheus_config_file_template: templates/zookeeper-metrics-config.yaml.j2
   collections:
-    - middleware_automation.amq_streams
+    - redhat.amq_streams
   roles:
-    - role: middleware_automation.amq_streams.amq_streams_zookeeper
+    - role: redhat.amq_streams.amq_streams_zookeeper
 
   pre_tasks:
     - name: "Ensure ZK admin password has been defined."
@@ -30,5 +30,5 @@
 
     - name: "Validate that Zookeeper deployment is functional."
       ansible.builtin.include_role:
-        name: middleware_automation.amq_streams.amq_streams_zookeeper
+        name: redhat.amq_streams.amq_streams_zookeeper
         tasks_from: validate.yml

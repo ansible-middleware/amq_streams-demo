@@ -47,7 +47,7 @@
     amq_streams_broker_zookeeper_port: 2181
 
   collections:
-     - middleware_automation.amq_streams
+     - redhat.amq_streams
   pre_tasks:
 
      - name: "Display computed replication factor"
@@ -80,6 +80,6 @@
 
   handlers:
     - name: "Run Cruise Control if broker is restarted"
-      listen: "middleware_automation.amq_streams.amq_streams_broker : Restart amq_streams_broker"
+      listen: "redhat.amq_streams.amq_streams_broker : Restart amq_streams_broker"
       ansible.builtin.debug:
         msg: "Hey, here I should run CC!"

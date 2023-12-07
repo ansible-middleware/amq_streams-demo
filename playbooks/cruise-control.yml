@@ -4,12 +4,13 @@
   gather_facts: False
   become: yes
   vars:
-    amq_streams_common_offline_install: True
-    amq_streams_common_version: 2.5.0
+    amq_streams_common_offline_install: False
+    amq_streams_common_version: 2.5.1
     # only to speed playbook execution after first run:
-    amq_streams_common_skip_deps: True
-    amq_streams_common_archive_file: amq-streams-2.5.0-cruise-control-bin.zip
+    #amq_streams_common_skip_deps: True
+    amq_streams_common_archive_file: amq-streams-2.5.1-cruise-control-bin.zip
     amq_stream_cruise_control_home: /opt/cruise-control/
+    amq_stream_common_home: /opt/kafka_2.13-3.5.0.redhat-00014/
     amq_streams_common_subdir: cruise-control
     # note that the following value is string, not a Ansible bool
     amq_streams_cruise_control_dry_mode: 'true'
@@ -17,12 +18,23 @@
     amq_streams_cruise_control_zk_security_protocol: SASL_PLAINTEXT
     amq_streams_cruise_control_zk_sasl_mechanism: PLAIN
     # cluster information
-    amq_streams_cruise_control_broker_host:	ip-172-31-17-73.us-east-2.compute.internal
-    amq_streams_cruise_control_zk_host: ip-172-31-22-217.us-east-2.compute.internal
+    #amq_streams_cruise_control_broker_host:	ip-172-31-17-73.us-east-2.compute.internal
+    #amq_streams_cruise_control_zk_host: ip-172-31-22-217.us-east-2.compute.internal
     amq_streams_broker_inventory_group: "{{ groups['brokers'] }}"
-    amq_streams_common_redhat_enable: False
+    amq_streams_common_redhat_enable: True
+    # to cleanup
+    amq_streams_zookeeper_auth_enabled: True
+    amq_streams_zookeeper_auth_user: zkadmin
+    amq_streams_zookeeper_auth_pass: zkpassword
+    amq_streams_broker_username: kafkauser
+    amq_streams_broker_password: "{{ amq_streams_zookeeper_auth_pass }}"
+    amq_streams_broker_admin_username: admin
+    amq_streams_broker_admin_password: "{{ amq_streams_zookeeper_auth_pass }}"
+    amq_streams_broker_inter_broker_auth_sasl_protocol: SASL_PLAINTEXT
+    amq_streams_broker_inter_broker_auth_sasl_mechanisms: PLAIN
+    #
   collections:
-     - middleware_automation.amq_streams
+     - redhat.amq_streams
   roles:
     - role: amq_streams_cruise_control
   pre_tasks:
