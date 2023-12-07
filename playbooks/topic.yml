@@ -7,7 +7,7 @@
     - vars.yml
   vars:
     amq_streams_broker_auth_enabled: True
-    amq_streams_zookeeper_auth_user: admin
+    amq_streams_zookeeper_auth_user: zkadmin
     amq_streams_broker_admin_username: kafkauser
     amq_streams_broker_topic_to_create_name: "myTopic"
     # skip deps check to speedup play

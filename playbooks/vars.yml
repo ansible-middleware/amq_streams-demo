@@ -1,16 +1,23 @@
 ---
-amq_streams_common_product_version: 3.5.0.redhat-00010
-amq_streams_common_scala_version: 2.13
-amq_streams_common_archive_file: amq-streams-2.5.0-bin.zip
+#amq_streams_common_product_version: 3.5.0.redhat-00010
+amq_streams_common_product_version: 3.6.0
+#amq_streams_common_scala_version: 2.13
+#amq_streams_common_archive_file: amq-streams-2.5.0-bin.zip
 
 amq_streams_common_download_dir: "/opt"
-amq_streams_common_home: /opt/kafka_2.13-3.5.0.redhat-00010/
-amq_streams_common_systctl_update_enable: True
-amq_streams_common_offline_install: True
+#amq_streams_common_home: /opt/kafka_2.13-3.5.0.redhat-00010/
+amq_stream_common_home: /opt/kafka_2.13-3.6.0 
+amq_streams_common_systctl_update_enable: False
+amq_streams_broker_cruise_control_enable: False
+amq_streams_common_offline_install: False
 amq_streams_common_download_remote_src: yes
 # workaround
-amq_streams_common_redhat_enable: True
+amq_streams_common_redhat_enable: False
 
 amq_streams_zookeeper_auth_enabled: True
 amq_streams_zookeeper_auth_user: zkadmin
-#amq_streams_zookeeper_auth_pass: var needs to be provided
+amq_streams_zookeeper_auth_pass: zkpassword
+amq_streams_broker_username: kafkauser
+amq_streams_broker_password: "{{ amq_streams_zookeeper_auth_pass }}"
+amq_streams_broker_admin_username: admin
+amq_streams_broker_admin_password: "{{ amq_streams_zookeeper_auth_pass }}"

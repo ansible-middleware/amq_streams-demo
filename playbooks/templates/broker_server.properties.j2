@@ -168,9 +168,6 @@ log.retention.check.interval.ms={{ amq_streams_broker_log_retention_check_interv
 ### AMQ Streams demo
 zookeeper.connect={{ amq_streams_broker_zookeeper_host }}:{{ amq_streams_broker_zookeeper_port }}{% for zknode in amq_streams_zookeeper_inventory_group %},{{ zknode }}:{{ amq_streams_broker_zookeeper_port }}{% endfor %}
 
-
-
-
 # Timeout in ms for connecting to zookeeper
 zookeeper.connection.timeout.ms={{ amq_streams_broker_zookeeper_connection_timeout_ms }}
 zookeeper.session.timeout.ms={{ amq_streams_broker_zookeeper_session_timeout_ms }}
@@ -185,7 +182,10 @@ zookeeper.session.timeout.ms={{ amq_streams_broker_zookeeper_session_timeout_ms 
 group.initial.rebalance.delay.ms={{ amq_streams_broker_group_initial_rebalance_delay_ms }}
 
 authorizer.class.name=kafka.security.authorizer.AclAuthorizer
+allow.everyone.if.no.acl.found=true
+super.users=User:admin
 
+{%if amq_streams_broker_cruise_control_enable is defined and amq_streams_broker_cruise_control_enable %}
 metric.reporters=com.linkedin.kafka.cruisecontrol.metricsreporter.CruiseControlMetricsReporter
 cruise.control.metrics.topic.auto.create=true
 cruise.control.metrics.topic.num.partitions=1
@@ -206,5 +206,4 @@ cruise.control.metrics.reporter.sasl.jaas.config={{ amq_streams_cruise_control_z
 #cruise.control.metrics.reporter.ssl.keystore.password=mypassword
 #cruise.control.metrics.reporter.ssl.truststore.location=/etc/ssl/kafka.server.truststore.jks
 #cruise.control.metrics.reporter.ssl.truststore.password=mypassword
-super.users=User:admin
-allow.everyone.if.no.acl.found=true
+{% endif %}
