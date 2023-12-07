@@ -13,7 +13,5 @@
 
 - name: "Ensure sasl.properties is up to date on broker."
   ansible.builtin.template:
-    src: templates/sasl.properties
+    src: templates/sasl.properties.j2
     dest: "{{ amq_stream_common_home }}/config/sasl.properties"
-  when:
-    - amq_stream_common_home is defined and amq_stream_common_home is exists
