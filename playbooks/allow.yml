@@ -1,8 +1,5 @@
-#/opt/kafka_2.13-3.5.0.redhat-00010/bin/kafka-acls.sh --bootstrap-server localhost:9092 --command-config /opt/kafka_2.13-3.5.0.redhat-00010/config/sasl-admin.properties --add --deny-principal User:kafkauser --operation Write --topic test2
-#
-# /opt/kafka_2.13-3.5.0.redhat-00010/bin/kafka-acls.sh --bootstrap-server localhost:9092 --command-config /opt/kafka_2.13-3.5.0.redhat-00010/config/sasl.properties --remove --topic <topic>
 ---
-- name: "ACL - Deny principal"
+- name: "ACL - Allow principal"
   hosts: acls
   gather_facts: no
   vars_files:
